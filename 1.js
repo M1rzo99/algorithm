@@ -20,4 +20,28 @@
 
 // *3 algorithm
 
-let n = 1
+function binarySearch(arr, target) {
+    let L = 0;
+    let H = arr.length - 1;
+
+    while (L <= H) {
+        let m = Math.floor((L + H) / 2); // 3-qadam: o‘rtadagi indeks
+
+        if (arr[m] === target) {
+            return m; // 4-qadam: topildi
+        } else if (arr[m] < target) {
+            L = m + 1; // 5-qadam: pastki chegarani ko‘taramiz
+        } else {
+            H = m - 1; // 6-qadam: yuqori chegarani pasaytiramiz
+        }
+    }
+
+    return -1; // 2-qadam: topilmadi
+}
+
+// Misol:
+const A = [2, 4, 6, 8, 10, 12, 14]; // Saralangan ro‘yxat
+const T = 10; // Qidirilayotgan qiymat
+
+const result = binarySearch(A, T);
+console.log("Index:", result); // chiqadi: Index: 4
