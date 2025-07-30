@@ -46,41 +46,92 @@
 // const result = binarySearch(A, T);
 // console.log("Index:", result); // chiqadi: Index: 4
 
-function binarySearch(arr, target) {
-    let left = 0;
-    let right = arr.length - 1;
+// function binarySearch(arr, target) {
+//     let left = 0;
+//     let right = arr.length - 1;
 
-    while (left <= right) {
-        let mid = Math.floor((left + right) / 2);
+//     while (left <= right) {
+//         let mid = Math.floor((left + right) / 2);
 
-        if (arr[mid] === target) {
-            return mid; // Topildi
-        } else if (arr[mid] < target) {
-            left = mid + 1;
-        } else {
-            right = mid - 1;
-        }
-    }
+//         if (arr[mid] === target) {
+//             return mid; // Topildi
+//         } else if (arr[mid] < target) {
+//             left = mid + 1;
+//         } else {
+//             right = mid - 1;
+//         }
+//     }
 
-    return -1; // Topilmadi
-}
+//     return -1; // Topilmadi
+// }
 
-// Tartibsiz massiv
-const unsortedArray = [12, 4, 8, 15, 3, 10, 6];
+// // Tartibsiz massiv
+// const unsortedArray = [12, 4, 8, 15, 3, 10, 6];
 
-// 1. Massivni saralash (o‘sish tartibida)
-const sortedArray = unsortedArray.slice().sort((a, b) => a - b); // slice() - original arrayni o‘zgartirmaslik uchun
+// // 1. Massivni saralash (o‘sish tartibida)
+// const sortedArray = unsortedArray.slice().sort((a, b) => a - b); // slice() - original arrayni o‘zgartirmaslik uchun
 
-// 2. Qidiriladigan qiymat
-const target = 10;
+// // 2. Qidiriladigan qiymat
+// const target = 10;
 
-// 3. Binary search chaqiramiz
-const index = binarySearch(sortedArray, target);
+// // 3. Binary search chaqiramiz
+// const index = binarySearch(sortedArray, target);
 
-// 4. Natijani chiqarish
-if (index !== -1) {
-    console.log(`${target} elementi saralangan massivda ${index}-indeksta joylashgan.`);
-    console.log("Tartiblangan massiv:", sortedArray);
-} else {
-    console.log(`${target} elementi massivda mavjud emas.`);
-}
+// // 4. Natijani chiqarish
+// if (index !== -1) {
+//     console.log(`${target} elementi saralangan massivda ${index}-indeksta joylashgan.`);
+//     console.log("Tartiblangan massiv:", sortedArray);
+// } else {
+//     console.log(`${target} elementi massivda mavjud emas.`);
+// }
+
+
+// //2025/07/30
+// function averageOfUnique(arr) {
+//     // Unikal qiymatlarni olish (Set yordamida)
+//     const unique = [...new Set(arr)];
+
+//     // Yig'indini hisoblash
+//     const total = unique.reduce((sum, num) => sum + num, 0);
+
+//     // O'rtacha qiymat
+//     const average = unique.length > 0 ? total / unique.length : 0;
+
+//     return average;
+// }
+
+// // Test qilish
+// const numbers = [4, 2, 5, 2, 4, 6, 7];
+// const result = averageOfUnique(numbers);
+
+// console.log("Unique average:", result);
+
+
+// //2025/07/30 2 si
+// function mostFrequentChar(str) {
+//   const frequency = {};
+//   let maxChar = '';
+//   let maxCount = 0;
+
+//   for (let char of str) {
+//     // Faqat harflarni ko'rib chiqamiz
+//     if (char.match(/[a-zA-Z]/)) {
+//       char = char.toLowerCase(); // Katta-kichik harflarni bir xil ko'rish uchun
+
+//       frequency[char] = (frequency[char] || 0) + 1;
+
+//       if (frequency[char] > maxCount) {
+//         maxCount = frequency[char];
+//         maxChar = char;
+//       }
+//     }
+//   }
+
+//   return `${maxChar} → ${maxCount} marta`;
+// }
+
+// // Test
+// const input = "javascript";
+// const result = mostFrequentChar(input);
+
+// console.log("Eng ko'p uchraydigan harf:", result);
