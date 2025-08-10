@@ -136,24 +136,58 @@
 
 // console.log("Eng ko'p uchraydigan harf:", result);
 
-function lengthOfLongestSubstring(s) {
-    let seen = new Set();
-    let left = 0;
-    let maxLen = 0;
+// function lengthOfLongestSubstring(s) {
+//     let seen = new Set();
+//     let left = 0;
+//     let maxLen = 0;
 
-    for (let right = 0; right < s.length; right++) {
-        while (seen.has(s[right])) {
-            seen.delete(s[left]);
-            left++;
-        }
-        seen.add(s[right]);
-        maxLen = Math.max(maxLen, right - left + 1);
-    }
+//     for (let right = 0; right < s.length; right++) {
+//         while (seen.has(s[right])) {
+//             seen.delete(s[left]);
+//             left++;
+//         }
+//         seen.add(s[right]);
+//         maxLen = Math.max(maxLen, right - left + 1);
+//     }
 
-    return maxLen;
+//     return maxLen;
+// }
+
+// // Sinov
+// console.log(lengthOfLongestSubstring("abcabcbb")); // 3
+// console.log(lengthOfLongestSubstring("bbbbb")); // 1
+// console.log(lengthOfLongestSubstring("pwwkew")); // 3
+
+// 2025.08.10
+//algorithms: massivni aylantirish
+
+function reverseArray(arr) {
+    return arr.reverse(); // reversed massivni aylantirish
 }
+console.log(reverseArray([1, 2, 3])); // [3, 2, 1]
 
-// Sinov
-console.log(lengthOfLongestSubstring("abcabcbb")); // 3
-console.log(lengthOfLongestSubstring("bbbbb")); // 1
-console.log(lengthOfLongestSubstring("pwwkew")); // 3
+// string ichidagi eng uzun so'zni topish
+
+function longestWord(str) {
+    let words = str.split(" ");
+    let max = "";
+    for (let w of words) {
+        if (w.length > max.length) max = w;
+    }
+    return max;
+}
+console.log(longestWord("Men React o‘rganishni yaxshi ko‘raman")); // "o‘rganishni"
+
+// array ichidagi eng katta sonni topish
+
+function maxNumber(arr) {
+    return Math.max(...arr);
+}
+console.log(maxNumber([5, 9, 1, 12, 3])); // 12
+
+
+// array ichidagi eng kichik sonni topish
+function minNumber(arr) {
+    return Math.min(...arr);
+}
+console.log(minNumber([5, 9, 1, 12, 3])); // 1
