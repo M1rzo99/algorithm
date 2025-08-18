@@ -217,32 +217,124 @@
 // 08/17
 // Linear Search - har bir elementni bir-bir qarab chiqish orqali qidirish
 // Binary Search - kerakli elementni yarmidan qidiradi va kerakli element topilguncha ikkiga bo'linish usulida ishlaydi
-/**
- * 1..N oralig'ida sirli sonni topish (binary search simulyatsiyasi)
- * @param {number} secret - o'ylangan son (masalan 45)
- * @param {number} low    - boshlang'ich pastki chegara (default 1)
- * @param {number} high   - boshlang'ich yuqori chegara (default 1000)
- * @returns {{found:boolean, value:number, steps:number}}
- */
-function findSecret(secret, low = 1, high = 1000) {
-    let L = low,
-        H = high,
-        steps = 0;
+// /**
+//  * 1..N oralig'ida sirli sonni topish (binary search simulyatsiyasi)
+//  * @param {number} secret - o'ylangan son (masalan 45)
+//  * @param {number} low    - boshlang'ich pastki chegara (default 1)
+//  * @param {number} high   - boshlang'ich yuqori chegara (default 1000)
+//  * @returns {{found:boolean, value:number, steps:number}}
+//  */
+// function findSecret(secret, low = 1, high = 1000) {
+//     let L = low,
+//         H = high,
+//         steps = 0;
 
-    while (L <= H) {
-        const m = L + ((H - L) >> 1); // o'rta nuqta, overflow-safe
-        steps++;
-        // Qadamni ko'rsatib boramiz:
-        console.log(`#${steps}: L=${L}, H=${H}, m=${m} → ` +
-            (m === secret ? 'found' : (m < secret ? 'm < T, L=m+1' : 'm > T, H=m-1')));
+//     while (L <= H) {
+//         const m = L + ((H - L) >> 1); // o'rta nuqta, overflow-safe
+//         steps++;
+//         // Qadamni ko'rsatib boramiz:
+//         console.log(`#${steps}: L=${L}, H=${H}, m=${m} → ` +
+//             (m === secret ? 'found' : (m < secret ? 'm < T, L=m+1' : 'm > T, H=m-1')));
 
-        if (m === secret) return { found: true, value: m, steps };
-        if (m < secret) L = m + 1;
-        else H = m - 1;
+//         if (m === secret) return { found: true, value: m, steps };
+//         if (m < secret) L = m + 1;
+//         else H = m - 1;
+//     }
+//     return { found: false, value: -1, steps };
+// }
+
+// // Demo: 1..1000 ichida 45 ni topish
+// const res = findSecret(45);
+// console.log(res); // { found: true, value: 45, steps: 10 }
+
+// 08/18
+function lengthOfLongestSubstring(s) {
+    const last = new Map(); // belgi -> oxirgi indeks
+    let left = 0,
+        maxLen = 0;
+
+    for (let right = 0; right < s.length; right++) {
+        const ch = s[right];
+        if (last.has(ch) && last.get(ch) >= left) {
+            left = last.get(ch) + 1; // oynani oldinga siljitamiz
+        }
+        last.set(ch, right);
+        maxLen = Math.max(maxLen, right - left + 1);
     }
-    return { found: false, value: -1, steps };
+    return maxLen;
 }
 
-// Demo: 1..1000 ichida 45 ni topish
-const res = findSecret(45);
-console.log(res); // { found: true, value: 45, steps: 10 }
+// Test
+console.log(lengthOfLongestSubstring("abcabcbb")); // 3 ("abc")
+console.log(lengthOfLongestSubstring("bbbbb")); // 1 ("b")
+console.log(lengthOfLongestSubstring("pwwkew")); // 3 ("wke")
+
+function threeSum(nums) {
+    const res = [];
+    nums.sort((a, b) => a - b);
+
+    for (let i = 0; i < nums.length - 2; i++) {
+        if (i > 0 && nums[i] === nums[i - 1]) continue; // dublikat i
+
+        let L = i + 1,
+            R = nums.length - 1;
+        while (L < R) {
+            const sum = nums[i] + nums[L] + nums[R];
+            if (sum === 0) {
+                res.push([nums[i], nums[L], nums[R]]);
+                // dublikatlarni o‘tkazish
+                while (L < R && nums[L] === nums[L + 1]) L++;
+                while (L < R && nums[R] === nums[R - 1]) R--;
+                L++;
+                R--;
+            } else if (sum < 0) {
+                L++;
+            } else {
+                R--;
+            }
+        }
+    }
+    return res;
+}
+
+// Test
+console.log(threeSum([-1, 0, 1, 2, -1, -4])); // [[-1,-1,2],[-1,0,1]]
+console.log(threeSum([0, 0, 0, 0])); // [[0,0,0]]
+
+function topoSort(numNodes, edges) {
+    const adj = Array.from({ length: numNodes }, () => []);
+    const indeg = Array(numNodes).fill(0);
+    for (const [u, v] of edges) {
+        adj[u].push(v);
+        indeg[v]++;
+    }
+
+    const q = [];
+    for (let i = 0; i < numNodes; i++)
+        if (indeg[i] === 0) q.push(i);
+
+    const order = [];
+    let head = 0;
+    while (head < q.length) {
+        const u = q[head++];
+        order.push(u);
+        for (const v of adj[u]) {
+            if (--indeg[v] === 0) q.push(v);
+        }
+    }
+    return order.length === numNodes ? order : []; // sikl bo‘lsa, bo‘sh
+}
+
+// Test
+// 0→1, 1→2, 0→2  => mumkin tartib: [0,1,2]
+console.log(topoSort(3, [
+    [0, 1],
+    [1, 2],
+    [0, 2]
+]));
+
+// Siklli: 0→1, 1→0 => []
+console.log(topoSort(2, [
+    [0, 1],
+    [1, 0]
+]));
