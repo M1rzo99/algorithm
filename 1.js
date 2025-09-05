@@ -338,3 +338,24 @@ console.log(topoSort(2, [
     [0, 1],
     [1, 0]
 ]));
+
+
+// 2025/09/05
+// 1.
+
+let a = 1
+let b = 1
+let c = 1
+
+if (a === b && b === c && c === a) {
+    console.log(" 3 ta song ham tengdir");
+
+} else if (a >= b && a >= c) {
+    console.log("A eng katta son");
+
+} else if (b >= a && b >= c) {
+    console.log("B  eng katta son");
+} else {
+    console.log("C eng katta son");
+
+}
