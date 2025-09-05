@@ -359,3 +359,19 @@ if (a === b && b === c && c === a) {
     console.log("C eng katta son");
 
 }
+
+//2.
+let v = 1
+let t = 2
+const summa = v + t
+console.log(summa);
+
+// 3.
+
+// start
+let N = 4
+let fac = 1
+for (let i = 1; i <= N; i++) {
+    fac *= i
+}
+console.log(fac);
